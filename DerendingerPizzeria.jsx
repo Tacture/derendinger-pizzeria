@@ -355,6 +355,33 @@ function Home({ go, status }) {
         )}
       </section>
 
+      <section className="showcase">
+        <div className="showcase-hero">
+          <div className="showcase-hero-overlay" />
+          <span className="showcase-emoji-bg">🍕</span>
+          <h2 className="showcase-title">Pizza Menü</h2>
+          <p className="showcase-sub">Aus dem Holzofen · 24 Sorten</p>
+        </div>
+        <div className="showcase-cards">
+          {[
+            { emoji: "🧀", name: "Margherita", desc: "Tomatensauce, Mozzarella und Oregano — der zeitlose Klassiker aus dem Holzofen.", price: "ab 14.–" },
+            { emoji: "🌶️", name: "Diavolo", desc: "Schinken, scharfe Salami, Peperoncini und Oliven — feurig & würzig.", price: "ab 18.–" },
+            { emoji: "🥦", name: "Vegetaria", desc: "Champignons, Peperoni, Spinat, Broccoli und Kräuterbutter — frisch & bunt.", price: "ab 17.–" },
+          ].map((p, i) => (
+            <button key={i} className="sc-card" onClick={() => go("menu")}>
+              <div className="sc-card-img">
+                <span className="sc-card-emoji">{p.emoji}</span>
+              </div>
+              <div className="sc-card-body">
+                <h3 className="sc-card-name">{p.name}</h3>
+                <p className="sc-card-desc">{p.desc}</p>
+                <span className="sc-card-price">{p.price}</span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </section>
+
       <section className="highlights">
         <div className="sec-head">
           <h2 className="sec-title">Unsere Lieblinge</h2>
@@ -771,6 +798,52 @@ const CSS = `
 }
 .strip-item{display:inline-flex;align-items:center;}
 .strip-item::before{content:"✦";color:var(--saffron);margin-right:.6rem;font-style:normal;}
+
+/* SHOWCASE */
+.showcase{background:var(--ink);color:var(--paper);overflow:hidden;}
+.showcase-hero{
+  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:clamp(3rem,8vw,5.5rem) 1.5rem clamp(2rem,4vw,3.5rem);overflow:hidden;
+  background:linear-gradient(180deg,#1a1008 0%,#2a1a0e 50%,#1a1008 100%);
+}
+.showcase-hero-overlay{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(197,58,34,.18),transparent 70%),
+             radial-gradient(ellipse 60% 50% at 30% 60%,rgba(225,162,58,.1),transparent 60%);
+  pointer-events:none;
+}
+.showcase-emoji-bg{
+  position:absolute;font-size:clamp(8rem,22vw,16rem);opacity:.12;top:50%;left:50%;
+  transform:translate(-50%,-50%) rotate(-12deg);pointer-events:none;filter:blur(2px);
+}
+.showcase-title{
+  position:relative;font-family:'Fraunces',serif;font-weight:900;font-style:italic;
+  font-size:clamp(2.4rem,6vw,4.2rem);letter-spacing:-.02em;line-height:1;
+  background:linear-gradient(135deg,#fff 30%,var(--saffron) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.showcase-sub{position:relative;margin-top:.7rem;color:rgba(246,237,218,.6);font-weight:600;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;}
+.showcase-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;
+  max-width:1060px;margin:0 auto;padding:0 clamp(1.2rem,5vw,3rem) clamp(2.5rem,5vw,4rem);
+}
+.sc-card{
+  all:unset;cursor:pointer;display:flex;flex-direction:column;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:18px;
+  overflow:hidden;transition:transform .22s ease,box-shadow .22s ease,background .22s;
+}
+.sc-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.1);box-shadow:0 20px 40px -16px rgba(0,0,0,.6);}
+.sc-card-img{
+  position:relative;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#2a1a0e,#3a2218);overflow:hidden;
+}
+.sc-card-emoji{font-size:clamp(3.5rem,6vw,5rem);filter:drop-shadow(0 6px 12px rgba(0,0,0,.4));transition:transform .3s ease;}
+.sc-card:hover .sc-card-emoji{transform:scale(1.12) rotate(5deg);}
+.sc-card-body{padding:1.2rem 1.3rem 1.4rem;display:flex;flex-direction:column;gap:.4rem;}
+.sc-card-name{font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--paper);}
+.sc-card-desc{color:rgba(246,237,218,.6);font-size:.9rem;line-height:1.45;}
+.sc-card-price{margin-top:.3rem;font-weight:800;color:var(--saffron);font-size:.95rem;}
+@media(max-width:720px){.showcase-cards{grid-template-columns:1fr;max-width:380px;}}
 
 /* HIGHLIGHTS */
 .highlights{max-width:1180px;margin:0 auto;padding:clamp(2.5rem,5vw,4.5rem) clamp(1.2rem,5vw,4rem);}
